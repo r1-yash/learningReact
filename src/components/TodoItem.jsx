@@ -63,3 +63,23 @@ function TodoItem({ todo }) {
 }
 
 export default TodoItem;
+
+
+/*
+User clicks "Edit"
+    ↓
+isTodoEditable = true
+    ↓
+Input appears with old text
+    ↓
+User types → todoMsg updates
+    ↓
+User clicks "Save"
+    ↓
+updatedTodo(id, { ...todo, todo: todoMsg })
+    ↓
+App.jsx updates the state
+    ↓
+Todo re-renders with new text
+
+*/
