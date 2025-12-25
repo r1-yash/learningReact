@@ -34,4 +34,5 @@ export const todoSlice = createSlice({
 
 export const {addTodo, removeTodo, updateTodo} = todoSlice.actions
 
+//for the store.js we need this line that is awareness about reducers 
 export default todoSlice.reducer
