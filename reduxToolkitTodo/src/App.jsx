@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-     <h1>about redux</h1>
+     <h1>Learning about redux</h1>
     </>
   )
 }
