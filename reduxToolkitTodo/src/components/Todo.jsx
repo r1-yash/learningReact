@@ -43,3 +43,6 @@ function Todos() {
 }
 
 export default Todos
+
+
+//it simply contains dispatch which is like to run a functionality, and it uses the functionaly of removeTodo

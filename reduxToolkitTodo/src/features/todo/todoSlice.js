@@ -4,7 +4,7 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 const initialState = {
     todos: [{id:1, text:"Hello world"}]
 }
-//just an object
+//1. just an object, it is a must under slice
 
 
 export const todoSlice = createSlice({
@@ -32,7 +32,11 @@ export const todoSlice = createSlice({
     }
 })
 
+//I will export every single reducer, for every single functionality
 export const {addTodo, removeTodo, updateTodo} = todoSlice.actions
 
-//for the store.js we need this line that is awareness about reducers 
+//for the store.js we need this line that is awareness about reducers, main export
 export default todoSlice.reducer
+
+//what is a slice ? 
+//its something that allows data modification through reducers, also MUST contain initial state and name 
