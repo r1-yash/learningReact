@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import './App.css'
-import { use } from 'react'
+import { useEffect } from 'react'
 
 function App() {
   const [input, setInput] = useState("")
@@ -10,7 +10,7 @@ function App() {
   const addTask = (() => {
 
     const newTask = {
-      id: Date.now.toString(),
+      id: Date.now().toString(),
       text: input,
       status: "backlog"
     }
@@ -19,6 +19,18 @@ function App() {
     console.log(input);
 
   })
+
+  useEffect(() => {
+    const tasks = JSON.parse(localStorage.getItem("task"))
+
+    if(tasks && tasks.length > 0){
+      setTask(tasks)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("task", JSON.stringify(task))
+  }, [task])
 
   return (
     <>
@@ -31,7 +43,7 @@ function App() {
 
       <button
       onClick={addTask}
-      ></button>
+      > Add Task</button>
     </>
   )
 }
