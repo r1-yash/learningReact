@@ -1,42 +1,39 @@
-import { useState } from 'react'
-
-
+import { useState, useEffect } from 'react'
+import { BoardProvider } from "./contexts";
+import BoardForm from "./components/BoardForm";
+import BoardItem from "./components/BoardItem";
 import './App.css'
-import { useEffect } from 'react'
 
-//two usestates to simply just take input and make an array of tasks
 function App() {
-  const [input, setInput] = useState("")
+
+  // global task array
   const [task, setTask] = useState([])
 
-  //function to add task with id, input, status .. then it adds it into the task array and resets the setInput
-  const addTask = (() => {
-
+  //function to add task with id, text, status
+  //NOTE: input is now coming from BoardForm, so text is passed as argument
+  const addTask = (text) => {
     const newTask = {
       id: Date.now().toString(),
-      text: input,
+      text: text,
       status: "backlog"
     }
     setTask(prev => [...prev, newTask]);
-    setInput("");
-    console.log(input);
-
-  })
-
+  }
 
   //STAGE 4, the provider for logic behind features is here 
   //we will be doing edit, delete,and change task status in the following steps
     
   const editTask = (id, changedTask) =>{
     setTask((prev)=>
-    prev.map((findId) => {
-      if(findId.id === id){
-        return {
-          ...findId, text:changedTask 
+      prev.map((findId) => {
+        if(findId.id === id){
+          return {
+            ...findId,
+            text: changedTask 
+          }
         }
-      }
-      return findId
-    })
+        return findId
+      })
     )
   }
   /*
@@ -47,26 +44,27 @@ function App() {
 
   const removeTask = (id) => {
     setTask((prev) => 
-    prev.filter((remElement) => {
-      return remElement.id !== id;
-    })
+      prev.filter((remElement) => {
+        return remElement.id !== id;
+      })
     )
   }
 
   const updateStatus = (id, newStatus) => {
-    setTask((prev) => prev.map((findId)=> {
-      if(findId.id === id){
-        return {
-          ...findId, status:newStatus
+    setTask((prev) =>
+      prev.map((findId)=> {
+        if(findId.id === id){
+          return {
+            ...findId,
+            status: newStatus
+          }
         }
-      }
-      return findId
-    }))
+        return findId
+      })
+    )
   }
 
-
-  //first useEffect to load it once, without dependancy
-
+  //first useEffect to load it once, without dependency
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("task"))
 
@@ -75,16 +73,29 @@ function App() {
     }
   }, [])
 
-  //it is for again n again, and dependancy array 
+  //it is for again n again, and dependency array 
   useEffect(() => {
     localStorage.setItem("task", JSON.stringify(task))
   }, [task])
 
   return (
-    <>
+    <BoardProvider
+      value={{
+        task,
+        addTask,
+        editTask,
+        removeTask,
+        taskStatus: updateStatus,
+      }}
+    >
       <h1>Task board</h1>
 
-    </>
+      <BoardForm />
+
+      {task.map((t) => (
+        <BoardItem key={t.id} task={t} />
+      ))}
+    </BoardProvider>
   )
 }
 
