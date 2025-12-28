@@ -3,10 +3,12 @@ import { useState } from 'react'
 import './App.css'
 import { useEffect } from 'react'
 
+//two usestates to simply just take input and make an array of tasks
 function App() {
   const [input, setInput] = useState("")
   const [task, setTask] = useState([])
 
+  //function to add task with id, input, status .. then it adds it into the task array and resets the setInput
   const addTask = (() => {
 
     const newTask = {
@@ -20,6 +22,8 @@ function App() {
 
   })
 
+  //first useEffect to load it once, without dependancy
+
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("task"))
 
@@ -28,6 +32,7 @@ function App() {
     }
   }, [])
 
+  //it is for again n again, and dependancy array 
   useEffect(() => {
     localStorage.setItem("task", JSON.stringify(task))
   }, [task])
