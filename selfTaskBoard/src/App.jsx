@@ -82,15 +82,7 @@ function App() {
   return (
     <>
       <h1>Task board</h1>
-      <input
-      placeholder='Task'
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      ></input>
-
-      <button
-      onClick={addTask}
-      > Add Task</button>
+      
     </>
   )
 }
