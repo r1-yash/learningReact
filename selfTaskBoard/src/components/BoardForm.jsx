@@ -1,33 +1,33 @@
 import { useState } from "react";
-import { useBoard } from "../contetxs/BoardContext";
+import { useBoard } from "../context";
 
-function boardForm() {
+function BoardForm() {
+  const [input, setInput] = useState("");
+  const { addTask } = useBoard();
 
-    const [input, setInput] = useState("")
-    const addTask = {addTask}
+  const eventHandler = (e) => {
+    e.preventDefault();
 
-    const eventHandler = (e) =>{
-        e.preveneDefault();
+    if (!input.trim()) return;
 
-        addTask(input)
-        setInput("")
+    addTask(input);
+    setInput("");
+  };
 
-    }
-
-    return(
-        <form>
-            <input
-            type="text"
-            placeholder="Enter Task .."
-            value={input}
-            onChange={(e)=> e.setInput(e.target.value)}
-            >
-            </input>
-            <button type="submit"> Add</button>
-        </form>
-    )
+  return (
+    <form onSubmit={eventHandler}>
+      <input
+        type="text"
+        placeholder="Enter Task.."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
 }
 
-export default boardForm
+export default BoardForm;
+
 
 //this takes the input, rather than cooking it up in app.jsx, wwe prefer to do it here

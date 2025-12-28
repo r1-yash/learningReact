@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { BoardProvider } from "./contexts";
+import { BoardProvider } from "./context";
 import BoardForm from "./components/BoardForm";
-import BoardItem from "./components/BoardItem";
+import BoardItems from "./components/BoardItems";
 import './App.css'
 
 function App() {
@@ -93,7 +93,7 @@ function App() {
       <BoardForm />
 
       {task.map((t) => (
-        <BoardItem key={t.id} task={t} />
+        <BoardItems key={t.id} task={t} />
       ))}
     </BoardProvider>
   )
