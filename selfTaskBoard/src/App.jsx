@@ -22,6 +22,28 @@ function App() {
 
   })
 
+  
+  //STAGE 4, the provider for logic behind features is here 
+  //we will be doing edit, delete,and change task status in the following steps
+    
+  const editTask = (id, changedTask) =>{
+    setTask((prev)=>
+    prev.map((findId) => {
+      if(findId.id === id){
+        return {
+          ...findId, text:changedTask 
+        }
+      }
+      return findId
+    })
+    )
+  }
+  /*
+  For edit task
+  React state updates = return new objects, never mutate old ones so how it works ? 
+  -it simply says - spread first, override after it and thats what we do here 
+  */
+
   //first useEffect to load it once, without dependancy
 
   useEffect(() => {
