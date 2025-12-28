@@ -52,6 +52,17 @@ function App() {
     )
   }
 
+  const updateStatus = (id, newStatus) => {
+    setTask((prev) => prev.map((findId)=> {
+      if(findId.id === id){
+        return {
+          ...findId, status:newStatus
+        }
+      }
+      return findId
+    }))
+  }
+
 
   //first useEffect to load it once, without dependancy
 
