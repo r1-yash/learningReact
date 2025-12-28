@@ -1,7 +1,7 @@
 import { useBoard } from "../contetxs/BoardContext";
-import { use, useCallback, useContext, useState } from "react";
+import {useState } from "react";
 
-function BoardItems (){
+function BoardItems ({task}){
     //importing the features from the context api
     const {editTask, addTask, removeTask, taskStatus} =useBoard();
 
@@ -10,14 +10,14 @@ function BoardItems (){
     const [isEdit, setIsEditing] = useState(false)
 
     return (
-        <div>
+        <div
         style={{
                 border: "1px solid #ccc",
                 padding: "10px",
                 marginBottom: "8px",
                 borderRadius: "6px",
             }}
-
+            >
             {/* - readOnly when not editing
             - editable when isEditing = true   */}
         <input
@@ -32,6 +32,8 @@ function BoardItems (){
                 }}
         />
 
+        {/* - Edit → enables editing
+        - Save → updates task text via App.jsx */}
         <button
         onClick={() => {
           if (isEdit) {
@@ -44,9 +46,34 @@ function BoardItems (){
         {isEdit ? "Save" : "Edit"}
       </button>        
 
+      <button
+        onClick={() => removeTask(task.id)}
+        style={{ marginLeft: "6px" }}
+      >
+        Delete
+      </button>
+
+      {task.status === "backlog" && (
+        <button
+          onClick={() => taskStatus(task.id, "in-progress")}
+          style={{ marginLeft: "6px" }}
+        >
+          In Progress
+        </button>
+      )}
+
+      {task.status === "in-progress" && (
+        <button
+          onClick={() => taskStatus(task.id, "done")}
+          style={{ marginLeft: "6px" }}
+        >
+          Done
+        </button>
+      )}
+
+
         </div>
     )
-
-
-
 } 
+
+export default BoardItems;
